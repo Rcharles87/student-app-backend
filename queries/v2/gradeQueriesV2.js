@@ -1,21 +1,11 @@
-const gradeDataV2 = require("../../data/v2/gradesDataV2.json");
+const db = require("../../db");
 
+const getGradesByStudentIdV2 = async (id) => {
+  const grades = await db.any("SELECT * FROM grades WHERE student_id = $1", [id]);
 
-
-const getGradesByStudentIdV2 = (id) => {
-  const results = [];
-  const { grades } = gradeDataV2;
-
-  for (const grade of grades) {
-    const { studentId } = grade;
-    if (studentId === id) {
-      results.push(grade);
-    }
-  }
-
-  return results;
+  return grades;
 };
 
 module.exports = {
-  getGradesByStudentIdV2
+  getGradesByStudentIdV2,
 };
