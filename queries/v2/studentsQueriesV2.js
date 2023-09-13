@@ -8,18 +8,15 @@ const getAllStudentsV2 = async () => {
 };
 
 const getAllStudentsWithGradesV2 = async () => {
-  const results = [];
   const students = await getAllStudentsV2();
 
   for (const student of students) {
     const { id } = student;
     const grades = await getGradesByStudentIdV2(id);
-    const copy = { ...student };
-    copy.grades = grades;
-    results.push(copy);
+    student.grades = grades;
   }
 
-  return results;
+  return students;
 };
 
 const getStudentByIdV2 = async (id) => {
